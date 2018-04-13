@@ -42,8 +42,10 @@ jobs:
                 - vpc_public_subnet_1_cidr: "10.10.10.0/24"
           script:
             - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
-            - export aws_access_key=$(shipctl get_integration_resource_field aws_cli_vpc aws_access_key_id)
-            - export aws_secret_key=$(shipctl get_integration_resource_field aws_cli_vpc aws_secret_access_key)
+            - export aws_access_key=$(shipctl get_integration_resource_field aws_cli_vpc access_key_id)
+            - export aws_secret_key=$(shipctl get_integration_resource_field aws_cli_vpc secret_access_key)
+            - echo $aws_access_key
+            - echo $AWS_CLI_VPC_INTEGRATION_ACCESSKEY
             - shipctl replace group_vars/variables.yml
             - cat group_vars/variables.yml
             # - ansible-playbook -v vpc_provision.yml

@@ -43,7 +43,7 @@ jobs:
           script:
             - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
             - shipctl replace group_vars/variables.yml
-            - cat replace group_vars/variables.yml
+            - cat group_vars/variables.yml
             # - ansible-playbook -v vpc_provision.yml
       - OUT: aws_vpc_info
         overwrite: true

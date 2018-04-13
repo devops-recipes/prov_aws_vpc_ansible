@@ -106,7 +106,7 @@
       - proto:        "tcp"
         from_port:    "22"
         to_port:      "22"
-        cidr_ip:      "{{ my_ip }}/32"
+        cidr_ip:      "{{ my_ip_range }}"
 
 
 # update shippable resource state

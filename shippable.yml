@@ -1,0 +1,53 @@
+resources:
+# Automation scripts repo
+  - name: aws_vpc_repo
+    type: gitRepo
+    integration: "drship_github"
+    versionTemplate:
+      sourceName: "devops-recipes/prov_aws_vpc_ansible"
+      branch: master
+
+# AWS CLI config
+  - name: aws_cli_vpc
+    type: cliConfig
+    integration: "drship_aws"
+    versionTemplate:
+      region: "us-east-1"
+
+# Output of VPC provisioning
+  - name: aws_vpc_info
+    type: params
+    versionTemplate:
+      params:
+        SEED: "initial_version"
+
+jobs:
+# Provision AWS VPC with Ansible
+  - name: prov_aws_vpc_ans
+    type: runSh
+    steps:
+      - IN: aws_vpc_repo
+      - IN: aws_cli_vpc
+        switch: off
+      - TASK:
+          name: deploy_app
+          runtime:
+            options:
+              env:
+                - STATE_RES_NAME: "aws_vpc_info"
+                - vpc_region: "us-east-1"
+                - vpc_name: "demo_vpc"
+                - vpc_cidr_block: "10.10.0.0/16"
+                - vpc_access_from_ip: "0.0.0.0/0"
+                - public_subnet_1_cidr: "10.10.10.0/24"
+          script:
+            - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
+            - shipctl replace group_vars/variables.yml
+            - cat replace group_vars/variables.yml
+            # - ansible-playbook -v vpc_provision.yml
+      - OUT: aws_vpc_info
+        overwrite: true
+    flags:
+      - aws_vpc
+      - aws
+      - ansible

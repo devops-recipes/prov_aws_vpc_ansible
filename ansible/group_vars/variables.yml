@@ -1,6 +1,6 @@
 # AWS Credentials
 aws_access_key: "${aws_access_key}"
-aws_secret_key: "ThisIsMyAwSSecretKey"
+aws_secret_key: "$(aws_secret_key}"
 aws_region:     "${vpc_region}"
 
 # VPC Information

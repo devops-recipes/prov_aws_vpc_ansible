@@ -7,12 +7,10 @@ resources:
       sourceName: "devops-recipes/prov_aws_vpc_ansible"
       branch: master
 
-# AWS CLI config
-  - name: aws_cli_vpc
-    type: cliConfig
+# AWS Creds
+  - name: aws_creds_vpc
+    type: integration
     integration: "drship_aws"
-    versionTemplate:
-      region: "us-east-1"
 
 # Output of VPC provisioning
   - name: aws_vpc_info
@@ -27,7 +25,7 @@ jobs:
     type: runSh
     steps:
       - IN: aws_vpc_repo
-      - IN: aws_cli_vpc
+      - IN: aws_creds_vpc
         switch: off
       - TASK:
           name: deploy_app
@@ -42,10 +40,9 @@ jobs:
                 - vpc_public_subnet_1_cidr: "10.10.10.0/24"
           script:
             - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
-            - export aws_access_key=$(shipctl get_integration_resource_field aws_cli_vpc access_key_id)
-            - export aws_secret_key=$(shipctl get_integration_resource_field aws_cli_vpc secret_access_key)
+            - export aws_access_key=$(shipctl get_integration_resource_field aws_creds_vpc aws_access_key_id)
+            - export aws_secret_key=$(shipctl get_integration_resource_field aws_creds_vpc aws_secret_access_key)
             - echo $aws_access_key
-            - echo $AWS_CLI_VPC_INTEGRATION_ACCESSKEY
             - shipctl replace group_vars/variables.yml
             - cat group_vars/variables.yml
             # - ansible-playbook -v vpc_provision.yml

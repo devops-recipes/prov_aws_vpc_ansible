@@ -17,13 +17,16 @@
   register: my_vpc
 
 
+- name: sleep for 30 seconds and continue with play
+  wait_for: timeout=30
+  delegate_to: localhost
+
 # We now use the set_fact module
 # to save the id of the VPC in a new variable.
 
 - name:               Set VPC ID in variable
   set_fact:
     vpc_id:           "{{ my_vpc.vpc.id }}"
-
 
 # Creating our only Subnet in the VPC.
 # A subnet needs to be located in an Availability Zone (or AZ).

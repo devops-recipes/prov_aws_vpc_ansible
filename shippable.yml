@@ -30,7 +30,7 @@ jobs:
       - IN: aws_cli_vpc
         switch: off
       - TASK:
-          name: deploy_app
+          name: prov_vpc
           runtime:
             options:
               env:

@@ -7,7 +7,7 @@ resources:
       sourceName: "devops-recipes/prov_aws_vpc_ansible"
       branch: master
 
-# AWS CLI config - kops
+# AWS CLI config
   - name: aws_cli_vpc
     type: cliConfig
     integration: "drship_aws"

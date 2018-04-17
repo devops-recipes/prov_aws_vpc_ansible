@@ -1,4 +1,4 @@
-# AWS Credentials
+# AWS Region
 aws_region:     "${vpc_region}"
 
 # VPC Information

@@ -1,5 +1,5 @@
 ---
-### provision AWS ECS cluster
+### provision AWS VPC
 - hosts: localhost
   connection: local
   gather_facts: false

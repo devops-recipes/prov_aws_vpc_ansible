@@ -5,9 +5,6 @@
   gather_facts: false
   user: root
   pre_tasks:
-    - include_vars: group_vars/variables.yml
+    - include_vars: variables.yml
   roles:
     - vpc_provision
-  post_tasks:
-    - name: refresh hosts inventory list
-      meta: refresh_inventory

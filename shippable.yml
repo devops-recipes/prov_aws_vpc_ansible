@@ -42,8 +42,8 @@ jobs:
                 - vpc_public_subnet_1_cidr: "10.10.10.0/24"
           script:
             - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
-            - shipctl replace group_vars/variables.yml
-            - ansible-playbook -v vpc_provision.yml
+            - shipctl replace variables.yml
+            - ansible-playbook -v vpc_prov_playbook.yml
       - OUT: aws_vpc_info
         overwrite: true
     flags:

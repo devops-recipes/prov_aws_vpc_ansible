@@ -42,7 +42,7 @@ jobs:
             - pushd $(shipctl get_resource_state "aws_vpc_repo")/ansible
             - export AWS_ACCESS_KEY_ID=$(shipctl get_integration_resource_field "aws_creds" "accesskey")
             - echo $AWS_ACCESS_KEY_ID
-            - export AWS_SECRET_ACCESS_KEY=$(shipctl get_integration_resource_field "aws_creds" "secretaccess")
+            - export AWS_SECRET_ACCESS_KEY=$(shipctl get_integration_resource_field "aws_creds" "secretkey")
             - echo $AWS_SECRET_ACCESS_KEY
             - shipctl replace variables.yml
             - aws configure --region $vpc_region --output "json"

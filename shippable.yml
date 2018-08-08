@@ -10,7 +10,7 @@ resources:
 # AWS CLI config
   - name: aws_creds
     type: integration
-    integration: "drship_aws"
+    integration: "dr_aws"
 
 # Output of VPC provisioning
   - name: aws_vpc_info
